@@ -1,8 +1,9 @@
 import React from 'react';
+import Home from './pages/Starter/Home/Home';
 
 function App() {
   return (
-    <h1>Parkman</h1>
+    <Home />
   );
 }
 
