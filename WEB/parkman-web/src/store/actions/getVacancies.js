@@ -1,14 +1,9 @@
 import api from '../../services/api';
 
 export function getVacancies() {
-   debugger
    return dispatch => {
       return api.get('/vacancy').then(res => {
-         debugger
-         dispatch({ 
-            type: 'GET_VACANCIES',
-            vacancies: res
-         })
+         dispatch(vacancies(res.data))
       })
    }
 }
