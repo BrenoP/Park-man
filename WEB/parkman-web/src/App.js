@@ -1,9 +1,13 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store/store';
 import Home from './pages/Starter/Home/Home';
 
 function App() {
   return (
-    <Home />
+    <Provider store={store}>
+      <Home />
+    </Provider>
   );
 }
 

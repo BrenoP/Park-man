@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { ChangeSectors, Icon, SectorTitle, styleIcon } from './Sectors.styles';
 import Slider from 'infinite-react-carousel';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as vacanciesActions from '../../../store/actions/getVacancies';
 
 const CreateArrow = (element) => <Icon>{ element }</Icon>;
 
@@ -15,7 +19,13 @@ const sectors = [
   { sector: 'Setor 6' }, 
 ];
 
-export default function Sectors() {
+function Sectors(props) {
+
+  // useEffect(() => {
+  //   debugger
+  //   // props.getVacancies()
+  //   props.dispatch(getVacancies());
+  // })
 
   return (
     <ChangeSectors>
@@ -29,3 +39,8 @@ export default function Sectors() {
     </ChangeSectors>
   );
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(vacanciesActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Sectors);
