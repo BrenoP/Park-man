@@ -19,6 +19,16 @@ module.exports = {
       return res.json(vacancies)
    },
 
+   async available(req, res) {
+      const vacancies = await Vacancy.find({
+         idOccupant: {
+            $gt: 0 
+         }
+      });
+
+      return res.json(vacancies)
+   },
+
    async update(req, res) {
       const { _id, idOccupant } = req.body;
 

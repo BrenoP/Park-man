@@ -6,4 +6,6 @@ routes.get('/vacancy', VacancyController.index);
 routes.post('/vacancy', VacancyController.store);
 routes.put('/vacancy', VacancyController.update)
 
+routes.get('/vacancy/available', VacancyController.available);
+
 module.exports = routes;
