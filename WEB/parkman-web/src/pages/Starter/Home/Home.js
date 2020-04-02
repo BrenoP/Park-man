@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ContainerTitle, Title } from './Home.styles';
 import Sectors from '../Sectors/Sectors';
 import Vacancies from '../Vacancies/Vacancies';
 
-export default function Home() {
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as vacanciesActions from '../../../store/actions/getVacancies';
+
+function Home(props) {
+
+  useEffect(() => {
+    debugger
+  })
+
   return (
     <>
       <ContainerTitle>
@@ -18,3 +27,12 @@ export default function Home() {
     </>
   );
 }
+
+const mapStateToProps = state => ({
+  vacancies: state.vacancies,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(vacanciesActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

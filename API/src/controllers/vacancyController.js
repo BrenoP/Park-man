@@ -15,8 +15,19 @@ module.exports = {
 
    async index(req, res) {
       const vacancies = await Vacancy.find();
+      
+      var result = {
+         vacancies: vacancies,
+         sectors: []
+      }
 
-      return res.json(vacancies)
+      vacancies.map(vacancy => { 
+         if(!result.sectors.includes(vacancy.sector)) {
+            result.sectors.push(vacancy.sector)
+         }
+      })
+
+      return res.json(result)
    },
 
    async available(req, res) {

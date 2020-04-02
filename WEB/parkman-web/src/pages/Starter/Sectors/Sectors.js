@@ -1,46 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { ChangeSectors, Icon, SectorTitle, styleIcon } from './Sectors.styles';
 import Slider from 'infinite-react-carousel';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as vacanciesActions from '../../../store/actions/getVacancies';
+export default function Sectors() {
 
-const CreateArrow = (element) => <Icon>{ element }</Icon>;
+  const [sectors, setsectors] = useState([])
 
-const sectors = [
-  { sector: 'Setor 1' },
-  { sector: 'Setor 2' },
-  { sector: 'Setor 3' },
-  { sector: 'Setor 4' },
-  { sector: 'Setor 5' },
-  { sector: 'Setor 6' }, 
-];
+  const CreateArrow = (element) => <Icon>{ element }</Icon>;
 
-function Sectors(props) {
+  const sector = useSelector(state => state.vacancies.sectors);
 
-  // useEffect(() => {
-  //   debugger
-  //   // props.getVacancies()
-  //   props.dispatch(getVacancies());
-  // })
+  useEffect(() => {
+    if(Object.keys(sector).length > 0) {
+      setsectors(sector.onlySectors)
+    }
+  }, [sector])
 
   return (
     <ChangeSectors>
-      <Slider 
-        dots
-        prevArrow={CreateArrow(<ArrowBackIosIcon style={ styleIcon } />)}
-        nextArrow={CreateArrow(<ArrowForwardIosIcon style={ styleIcon } />)}
-      >
-        { sectors.map(sector => <SectorTitle key={sector.sector}>{ sector.sector }</SectorTitle>) }
-      </Slider>
+      {
+        sectors.length < 1 ? (
+          <SectorTitle>Carregando setores...</SectorTitle>
+        ) : (
+          <Slider 
+            dots
+            prevArrow={CreateArrow(<ArrowBackIosIcon style={ styleIcon } />)}
+            nextArrow={CreateArrow(<ArrowForwardIosIcon style={ styleIcon } />)}
+          >
+            { 
+              sectors.map(sector => <SectorTitle key={sector}>Setor: { sector }</SectorTitle>)
+            }
+          </Slider>
+        )
+      }
     </ChangeSectors>
   );
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(vacanciesActions, dispatch);
-
-export default connect(null, mapDispatchToProps)(Sectors);
